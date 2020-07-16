@@ -702,6 +702,16 @@ function TK_GenerateForm() {
 	TK_Controlframe().document.options.structurelist.defaultValue = str2.substr (1);
 
 	TK_dirty = 0;
+	//update url:
+	if (window.history.replaceState) {
+		var url = "index.html";
+		url = TK_Controlframe().TK_UrlAppend (url, 'mapwidth', TK_MapWidth, 113);
+		url = TK_Controlframe().TK_UrlAppend (url, 'mapheight', TK_MapHeight, 113);
+		url = TK_Controlframe().TK_UrlAppend (url, 'centerx', TK_Controlframe().document.citycenter.centerx.value, 0);
+		url = TK_Controlframe().TK_UrlAppend (url, 'centery', TK_Controlframe().document.citycenter.centery.value, 0);
+		url = TK_Controlframe().TK_UrlAppend (url, 'mapdata', escape (TK_Controlframe().document.options.fakestructurelist.value), '');
+		parent.history.replaceState({}, null, url); //replaceState doesn't add additional 'back' entries in history
+	}
 }
 
 function TK_GenerateFromForm() {
